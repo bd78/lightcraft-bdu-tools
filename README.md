@@ -19,6 +19,16 @@ source "$(python activate_venv.py path)"         #   bash
 python activate_venv.py --recreate               # rebuild .venv first
 ```
 
+## `check_secrets.py`: no credentials in a review or commit
+
+Scans staged changes, unstaged changes and new files for tokens, keys and password assignments, and
+prints only `file:line (kind)`, never the value. Exit code 1 when something is found. Run it before
+`coderabbit review` (which uploads the changes) and before committing; see `CLAUDE.md`.
+
+```sh
+python check_secrets.py
+```
+
 ## `gap_report.py`: what to work on next
 
 Writes `reports/lightcraft-next-<date>.md` with:
