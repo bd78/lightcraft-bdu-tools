@@ -29,6 +29,24 @@ prints only `file:line (kind)`, never the value. Exit code 1 when something is f
 python check_secrets.py
 ```
 
+## `sync_main.ps1`: bring your fork's main up to date
+
+The fork's `main` is a plain copy of upstream `main` (fork-only workflows live on the fork's default branch,
+`nightly`). In the `..\lightcraft` clone next to this repo, the script:
+
+1. stops unless you are on `main`;
+2. fetches `upstream` (storytold/lightcraft) and pushes `upstream/main` to the fork's `main`, never forced, so
+   the push is refused unless it is a fast-forward;
+3. pulls `origin/main` into the local `main`, fast-forward only.
+
+Any failing `git` command stops it. It needs PowerShell 7.4 or later and refuses to run on older versions.
+
+```powershell
+./sync_main.ps1
+```
+
+The fork's `Sync main with upstream` workflow does step 2 every night at 01:00 Eastern time.
+
 ## `gap_report.py`: what to work on next
 
 Writes `reports/lightcraft-next-<date>.md` with:
